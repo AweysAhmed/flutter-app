@@ -23,46 +23,54 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(primaryColor: Colors.green[700]),
       home: Scaffold(
         appBar: AppBar(
-          title: Text("How much did that really cost?"),
+          title: Text(
+            "How much did that really cost?",
+          ),
         ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text(
-                  "Oh. You need a little dummy text for your mockup? How quaint. I bet you’re still using Bootstrap too…"),
-              TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'What did you buy?',
+        body: Container(
+          margin: EdgeInsets.all(20),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Text(
+                  "Oh. You need a little dummy text for your mockup? How quaint. I bet you’re still using Bootstrap too…",
+                  style: TextStyle(fontSize: 25),
+                  textAlign: TextAlign.center,
                 ),
-              ),
-              TextField(
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'How much did it cost?',
+                TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'What did you buy?',
+                  ),
                 ),
-              ),
-              TextField(
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'How many years in the future?',
+                TextField(
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'How much did it cost?',
+                  ),
                 ),
-              ),
-              TextField(
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Estimated Rate of Return',
+                TextField(
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'How many years in the future?',
+                  ),
                 ),
-              ),
-              RaisedButton(
-                child: Text("Calculate"),
-                onPressed: null,
-              )
-            ],
+                TextField(
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Estimated Rate of Return',
+                  ),
+                ),
+                RaisedButton(
+                  child: Text("Calculate"),
+                  onPressed: null,
+                )
+              ],
+            ),
           ),
         ),
       ),
