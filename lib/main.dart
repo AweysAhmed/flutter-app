@@ -4,17 +4,30 @@ void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return _MyAppState();
-  }
+  _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  void futureValueResult() {
-    setState(() {
-      //function to calculate futre value
-    });
+  final formKey = GlobalKey<FormState>();
+
+  int interestRate;
+  int years;
+  int itemCost;
+  String purchasedItem;
+
+  final interestRateController = TextEditingController();
+  final yearsController = TextEditingController();
+  final itemCostController = TextEditingController();
+  final purchasedItemController = TextEditingController();
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    interestRateController.dispose();
+    yearsController.dispose();
+    itemCostController.dispose();
+    purchasedItemController.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -30,50 +43,67 @@ class _MyAppState extends State<MyApp> {
         body: Container(
           margin: EdgeInsets.all(20),
           child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Text(
-                  "Oh. You need a little dummy text for your mockup? How quaint. I bet you’re still using Bootstrap too…",
-                  style: TextStyle(fontSize: 25),
-                  textAlign: TextAlign.center,
-                ),
-                TextField(
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'What did you buy?',
+            child: Form(
+              key: formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text(
+                    "Oh. You need a little dummy text for your mockup? How quaint. I bet you’re still using Bootstrap too…",
+                    style: TextStyle(fontSize: 25),
+                    textAlign: TextAlign.center,
                   ),
-                ),
-                TextField(
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'How much did it cost?',
+                  TextFormField(
+                    controller: purchasedItemController,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'What did you buy?',
+                    ),
+                    validator: (input) =>
+                        input.length <= 2 ? "not valid" : null,
+                    onSaved: (input) => purchasedItem = input,
                   ),
-                ),
-                TextField(
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'How many years in the future?',
+                  TextFormField(
+                    controller: itemCostController,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'How much did it cost?',
+                    ),
+                    validator: (input) =>
+                        int.parse(input) <= 0 ? "not valid" : null,
+                    onSaved: (input) => itemCost = int.parse(input);
                   ),
-                ),
-                TextField(
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Estimated Rate of Return',
+                  TextFormField(
+                    controller: yearsController,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'How many years in the future?',
+                    ),
                   ),
-                ),
-                RaisedButton(
-                  child: Text("Calculate"),
-                  onPressed: null,
-                )
-              ],
+                  TextFormField(
+                    controller: interestRateController,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Estimated Rate of Return',
+                    ),
+                  ),
+                  RaisedButton(
+                    child: Text("Calculate"),
+                    onPressed: submit,
+                  ),
+                ],
+              ),
             ),
           ),
         ),
       ),
     );
+  }
+
+  void submit() {
+    if (formKey.currentState.validate()) {}
   }
 }
