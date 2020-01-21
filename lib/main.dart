@@ -102,8 +102,8 @@ class _MyAppState extends State<MyApp> {
   }
 
   futureValue(interest, year, cost) {
-    var interestAndOne = 1 + (interest / 100);
-    var fV = cost * pow(interestAndOne, year);
+    double interestAndOne = 1 + (interest / 100);
+    double fV = cost * pow(interestAndOne, year);
     return fV;
   }
 
