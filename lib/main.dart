@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 void main() => runApp(MyApp());
 
@@ -9,11 +10,6 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final formKey = GlobalKey<FormState>();
-
-  int interestRate;
-  int years;
-  int itemCost;
-  String purchasedItem;
 
   final interestRateController = TextEditingController();
   final yearsController = TextEditingController();
@@ -61,7 +57,6 @@ class _MyAppState extends State<MyApp> {
                     ),
                     validator: (input) =>
                         input.length <= 2 ? "not valid" : null,
-                    onSaved: (input) => purchasedItem = input,
                   ),
                   TextFormField(
                     controller: itemCostController,
@@ -72,7 +67,6 @@ class _MyAppState extends State<MyApp> {
                     ),
                     validator: (input) =>
                         int.parse(input) <= 0 ? "not valid" : null,
-                    onSaved: (input) => itemCost = int.parse(input);
                   ),
                   TextFormField(
                     controller: yearsController,
@@ -81,6 +75,8 @@ class _MyAppState extends State<MyApp> {
                       border: OutlineInputBorder(),
                       labelText: 'How many years in the future?',
                     ),
+                    validator: (input) =>
+                        int.parse(input) <= 0 ? "not valid" : null,
                   ),
                   TextFormField(
                     controller: interestRateController,
@@ -89,6 +85,8 @@ class _MyAppState extends State<MyApp> {
                       border: OutlineInputBorder(),
                       labelText: 'Estimated Rate of Return',
                     ),
+                    validator: (input) =>
+                        int.parse(input) <= 0 ? "Not Valid" : null,
                   ),
                   RaisedButton(
                     child: Text("Calculate"),
@@ -103,7 +101,19 @@ class _MyAppState extends State<MyApp> {
     );
   }
 
+  futureValue(interest, year, cost) {
+    var interestAndOne = 1 + (interest / 100);
+    var fV = cost * pow(interestAndOne, year);
+    return fV;
+  }
+
   void submit() {
-    if (formKey.currentState.validate()) {}
+    // var purchasedItem = purchasedItemController.text;
+    var itemCost = int.parse(itemCostController.text);
+    var years = int.parse(yearsController.text);
+    var interestRate = int.parse(interestRateController.text);
+    if (formKey.currentState.validate()) {
+      print(futureValue(interestRate, years, itemCost));
+    }
   }
 }
