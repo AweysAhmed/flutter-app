@@ -104,7 +104,7 @@ class _MyAppState extends State<MyApp> {
   futureValue(interest, year, cost) {
     double interestAndOne = 1 + (interest / 100);
     double fV = cost * pow(interestAndOne, year);
-    return fV;
+    return double.parse(fV.toStringAsFixed(2));
   }
 
   void submit() {
@@ -113,7 +113,8 @@ class _MyAppState extends State<MyApp> {
     var years = int.parse(yearsController.text);
     var interestRate = int.parse(interestRateController.text);
     if (formKey.currentState.validate()) {
-      print(futureValue(interestRate, years, itemCost));
+      var output = futureValue(interestRate, years, itemCost);
+      print("The true cost is $output");
     }
   }
 }
